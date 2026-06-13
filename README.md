@@ -4,9 +4,11 @@
 [![Dataset](https://img.shields.io/badge/dataset-BCI%20Competition%20IV%202a-green.svg)](https://www.bbci.de/competition/iv/)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
 
+[![Accuracy](https://img.shields.io/badge/mean%20accuracy-76.7%25-brightgreen.svg)](#results)
+
 End-to-end **motor imagery (MI) brain–computer interface** pipeline and interactive demo platform built on the [BCI Competition IV Dataset 2a](https://www.bbci.de/competition/iv/#dataset2a). The project covers signal preprocessing, leakage-safe cross-validation, systematic hyperparameter search, subject-specific model optimization, cross-subject analysis, and real-time inference with **Streamlit**, **Pygame**, and **FastAPI**.
 
-> **Resume one-liner:** Designed and implemented a full-stack MI-BCI system achieving **72.7% mean 5-fold CV accuracy** (9 subjects, 4-class) via FBCSP/CSP pipelines, with an interactive demo platform supporting GDF replay, universal subject routing, and rigorous experiment reproducibility.
+> **Resume one-liner:** Designed and implemented a full-stack MI-BCI system achieving **76.7% mean holdout accuracy** on the Universal Smart Router (9 subjects, 4-class), up from 65.6% baseline, with an interactive demo platform supporting GDF replay, subject auto-routing, and rigorous experiment reproducibility.
 
 ---
 
@@ -14,7 +16,9 @@ End-to-end **motor imagery (MI) brain–computer interface** pipeline and intera
 
 | Area | Achievement |
 |------|-------------|
-| **Classification** | Per-subject optimized pipeline: **72.7%** mean CV (vs. 65.6% default CSP+SVM) |
+| **Classification (final)** | Universal Smart Router: **76.7%** mean holdout (9 subjects, auto-routed sub-models) |
+| **Classification (grid CV)** | Per-subject optimized pipeline: **72.7%** mean 5-fold CV (vs. 65.6% default CSP+SVM) |
+| **High-potential tuning** | A02/A05/A09 boosted to **74.0%** mean CV (LightGBM / ExtraTrees / extended FBCSP) |
 | **Experiment design** | **432-config** grid search (band × window × CAR × method), leakage-safe 5-fold CV |
 | **Deep learning baseline** | EEGNet comparison: **52.4%** mean (traditional methods win on this dataset) |
 | **Cross-subject study** | Transfer learning & LOSO analysis (~39% true cross-subject ceiling) |
@@ -54,6 +58,15 @@ python demo/run_demo.py --api --subject A09   # http://127.0.0.1:8765/health
 
 ## Results
 
+### Accuracy progression
+
+| Stage | Mean Accuracy | Metric |
+|-------|---------------|--------|
+| Default CSP + SVM | 65.6% | 5-fold CV |
+| Grid-search per-subject best | 72.7% | 5-fold CV |
+| High-potential subject tuning (A02/A05/A09) | 74.0% | 5-fold CV |
+| **Universal Smart Router (final platform)** | **76.7%** | **Holdout (matched subject)** |
+
 ### Per-subject best configuration (5-fold CV)
 
 | Subject | Method | Config | CV Accuracy |
@@ -71,13 +84,15 @@ python demo/run_demo.py --api --subject A09   # http://127.0.0.1:8765/health
 
 † A04/A06: BCI illiteracy (weak ERD/ERS); confirmed via signal diagnostics, not fixable by tuning alone.
 
-### Method comparison (mean CV)
+### Method comparison
 
 | Method | Mean Accuracy |
 |--------|---------------|
 | Default CSP + SVM | 65.6% |
 | Default FBCSP + LDA | 61.0% |
-| **Per-subject optimized** | **72.7%** |
+| Per-subject grid optimized (CV) | 72.7% |
+| High-potential tuning (CV) | 74.0% |
+| **Universal Smart Router (holdout)** | **76.7%** |
 | EEGNet (deep baseline) | 52.4% |
 | Cross-subject LOSO (single model) | ~39% |
 
@@ -195,8 +210,9 @@ All evaluations use **Stratified 5-fold CV** with CSP/scaler fitted **inside eac
 
 A single `motor_imagery_universal.pkl` bundles per-subject best models and **auto-selects** the correct pipeline from the GDF filename (e.g. `A05T.gdf` → A05 FBCSP+LDA).
 
+- **Final platform accuracy:** **76.7%** mean holdout across 9 subjects (see `outputs/universal_model_validation.csv`).
 - **Not** a single shared-weight model across subjects (LOSO ~39%).
-- **Is** a production-friendly router for matched-subject inference at each subject's CV ceiling.
+- **Is** a production-friendly router for matched-subject inference at each subject's optimized ceiling.
 - Optional **A010** sub-model: left/right MI from BCI IV 2b (3-channel, binary).
 
 ---
@@ -228,13 +244,13 @@ Event codes (BCI 2a): 769 / 770 / 771 / 772.
 
 **中文：**
 
-- 基于 BCI Competition IV 2a 数据集，独立实现从 EEG 预处理、CSP/FBCSP 特征提取到分类的完整 MI-BCI 流水线，通过 432 组网格搜索与受试者级调参，将 9 人平均 5 折 CV 准确率从 65.6% 提升至 **72.7%**。
+- 基于 BCI Competition IV 2a 数据集，独立实现从 EEG 预处理、CSP/FBCSP 特征提取到分类的完整 MI-BCI 流水线；通过 432 组网格搜索、受试者级调参及 Universal 智能路由，将 9 人平均准确率从 65.6% 提升至 **76.7%**（平台 holdout 评估）。
 - 设计并实现可部署的 BCI Demo 平台（Streamlit / Pygame / FastAPI），支持 GDF 试次回放、Universal 受试者路由、推理日志与模型热加载。
 - 完成 EEGNet 深度基线、跨受试者迁移学习、ERD/ERS 信号诊断等对比实验，确认 BCI 失读受试者上限并排除数据泄漏。
 
 **English:**
 
-- Built an end-to-end motor imagery BCI pipeline on BCI Competition IV 2a, raising mean 5-fold CV accuracy from 65.6% to **72.7%** via 432-config grid search and per-subject FBCSP/CSP optimization.
+- Built an end-to-end motor imagery BCI pipeline on BCI Competition IV 2a, improving mean accuracy from 65.6% baseline to **76.7%** on the Universal Smart Router (holdout, matched-subject routing) via grid search, per-subject FBCSP/CSP optimization, and deployable inference platform.
 - Delivered a deployable demo platform (Streamlit, Pygame, FastAPI) with GDF replay, universal subject routing, and hot-loaded inference.
 - Conducted rigorous benchmarks (EEGNet, cross-subject transfer, ERD/ERS diagnostics) with leakage-safe CV and documented BCI illiteracy limits.
 
