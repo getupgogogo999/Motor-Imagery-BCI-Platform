@@ -1,0 +1,4 @@
+A010 external subject (BCI 2b B01)
+CV accuracy: 0.6750
+Holdout: 0.6667
+Trials: 120 (left/right各约60)

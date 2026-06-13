@@ -1,0 +1,5 @@
+数据泄漏检查（以 A01 为例的逻辑）:
+  正确 5 折 CV（每折独立 fit CSP+Scaler+SVM）: 0.8125
+  sklearn Pipeline 5 折 CV（同样无泄漏）: 0.7954
+  结论: 使用 Pipeline + StratifiedKFold 时，CSP/Scaler 仅在训练折 fit，无泄漏。
+  注意: 切勿在 CV 前对全数据做 CSP fit 或 StandardScaler.fit。

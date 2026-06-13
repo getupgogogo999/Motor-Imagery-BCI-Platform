@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+Thumbs.db
+.Desktop.ini
+
+# Large raw data (download separately — see README)
+*.gdf
+*.zip
+BCICIV_2a_all_patients.csv
+BCICIV_2a_gdf/
+BCICIV_2b_gdf/
+patients (1)/
+
+# Runtime logs (regenerated locally)
+outputs/inference_logs/*.log
+
+# Streamlit cache
+.streamlit/
+
+# Optional: uncomment to exclude trained models (retrain with train.py)
+# models/*.pkl

@@ -1,0 +1,5 @@
+,accuracy,accuracy,kappa,kappa
+,mean,std,mean,std
+method,,,,
+CSP+SVM,0.6259,0.1648,0.5012,0.2197
+FBCSP+LDA,0.6182,0.1487,0.4909,0.1983

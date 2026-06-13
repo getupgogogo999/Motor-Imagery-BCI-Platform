@@ -1,0 +1,26 @@
+A04-A06 低准确率根因分析
+========================================
+
+【数据质量】
+- 坏通道: 均为 0（无硬件坏道）
+- 类别平衡: 每类 72 试次，完全均衡
+- μ/β 能量: 与 A01/A03 差异极小（GDF 已标准化，非信号缺失）
+
+【默认配置表现】
+  A04 CSP+SVM: acc=48.3%, kappa=0.310
+  A04 FBCSP+LDA: acc=50.3%, kappa=0.338
+  A05 CSP+SVM: acc=49.3%, kappa=0.324
+  A05 FBCSP+LDA: acc=52.8%, kappa=0.370
+  A06 CSP+SVM: acc=46.2%, kappa=0.282
+  A06 FBCSP+LDA: acc=36.5%, kappa=0.153
+
+【最优配置表现（网格搜索后）】
+  A04: FBCSP+LDA 8-30Hz 0.5-2.5s CAR=False -> acc=50.3%, kappa=0.338
+  A05: FBCSP+LDA 4-40Hz 0.5-4.0s CAR=True -> acc=75.0%, kappa=0.667
+  A06: FBCSP+LDA 4-40Hz 0.5-4.0s CAR=False -> acc=49.0%, kappa=0.319
+
+【结论】
+1. 非数据泄漏或坏通道问题，主要是 BCI illiteracy（受试者 MI 可分离性差）
+2. A05 在 7-35Hz + FBCSP+LDA 可达 ~72%，说明频段/方法匹配很重要
+3. 延长 time window 对 A02 有效（1.0-4.0s 约 68%），对 A04 无效
+4. 建议: 每人单独选最优 band/window/method，而非统一配置

@@ -1,0 +1,22 @@
+EEGNet vs CSP/FBCSP 对比报告
+==================================================
+EEGNet 训练 epoch/折: 80
+评估: 5-fold stratified CV（无泄漏）
+
+各受试者对比:
+  A01: baseline FBCSP+LDA 82.3% | EEGNet best 61.1% (-21.2pp)
+  A02: baseline FBCSP+LDA 68.8% | EEGNet best 46.5% (-22.2pp)
+  A03: baseline CSP+SVM 86.8% | EEGNet best 67.0% (-19.8pp)
+  A04: baseline FBCSP+LDA 50.3% | EEGNet best 37.5% (-12.8pp)
+  A05: baseline FBCSP+LDA 75.0% | EEGNet best 32.3% (-42.7pp)
+  A06: baseline FBCSP+LDA 49.0% | EEGNet best 33.0% (-16.0pp)
+  A07: baseline FBCSP+LDA 79.5% | EEGNet best 44.8% (-34.7pp)
+  A08: baseline CSP+SVM 86.8% | EEGNet best 70.8% (-16.0pp)
+  A09: baseline CSP+SVM 76.0% | EEGNet best 78.5% (+2.4pp)
+
+EEGNet 默认配置平均: 49.1%
+EEGNet 调参预处理平均: 50.1%
+EEGNet 每人最优平均: 52.4%
+CSP/FBCSP grid 最优平均: 72.7%
+
+EEGNet 胜 baseline 人数: 1/9

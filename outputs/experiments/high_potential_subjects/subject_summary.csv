@@ -1,0 +1,4 @@
+subject,current_cv,best_cv,improvement_pp,best_task,best_config,best_classifier
+A02,0.6875,0.7256944444444444,3.819444444444442,classifier_ExtraTrees,7-35Hz 0.5-4.0s CAR=False,ExtraTrees
+A05,0.75,0.7708333333333334,2.083333333333337,classifier_LightGBM,4-40Hz 0.5-3.5s CAR=True,LightGBM
+A09,0.7604,0.8194444444444444,5.9044444444444455,classifier_LightGBM,7-35Hz 0.5-2.5s CAR=True,LightGBM

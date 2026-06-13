@@ -1,0 +1,41 @@
+MI 信号可分离性诊断报告
+==================================================
+
+【分析1: ERD/ERS — 类别特异性】
+关键不是「有没有 ERD」，而是「不同 MI 类别是否产生不同的对侧 ERD 模式」
+  左手想象 → C4 比 C3 更 ERD (contrast < -0.3 dB)
+  右手想象 → C3 比 C4 更 ERD (contrast < -0.3 dB)
+
+  A03:
+    对侧 ERD 模式正确数: 1/2
+    左手 contrast (C4-C3): -5.40 dB
+    右手 contrast (C3-C4): -0.18 dB
+    跨类别 ERDS 方差: 2.997
+
+  A04:
+    对侧 ERD 模式正确数: 1/2
+    左手 contrast (C4-C3): +1.50 dB
+    右手 contrast (C3-C4): -2.12 dB
+    跨类别 ERDS 方差: 0.249
+
+  A06:
+    对侧 ERD 模式正确数: 1/2
+    左手 contrast (C4-C3): +0.46 dB
+    右手 contrast (C3-C4): -1.74 dB
+    跨类别 ERDS 方差: 0.190
+
+【分析2: CSP t-SNE Silhouette Score】
+  >0.15: 类别有明显簇结构
+  0.05~0.15: 弱结构
+  <0.05: 类别完全混杂（无可分离特征）
+
+  A03: silhouette=0.176 → 明显分离
+  A04: silhouette=-0.008 → 完全混杂
+  A06: silhouette=-0.022 → 完全混杂
+
+【结论】
+  A04 vs A03: CSP 特征无簇结构 → 分类器无法利用 MI 差异
+  A04 综合判断: ERD 缺乏类别特异性 + CSP 特征混杂 → BCI illiteracy
+  A06: CSP 特征类别完全混杂
+  A06: 对侧 ERD 类别特异性仅 1/2
+  A06 综合判断: 符合 BCI illiteracy，换模型难以提升

@@ -1,0 +1,27 @@
+{
+  "version": "1.1",
+  "description": "已训练模型注册表（勿重新训练，推理平台直接加载）",
+  "default_model": "models/motor_imagery_universal.pkl",
+  "universal_model": {
+    "path": "models/motor_imagery_universal.pkl",
+    "type": "universal_router",
+    "note": "单个文件自动路由 A01-A09 最优子模型；A04/A06 上限约50%"
+  },
+  "recommended_demo": {
+    "subject": "A09",
+    "path": "models/motor_imagery_a09.pkl",
+    "method": "CSP+SVM",
+    "note": "高准确率受试者，适合 pygame demo"
+  },
+  "subjects": {
+    "A01": {"path": "models/motor_imagery_a01.pkl", "method": "FBCSP+LDA"},
+    "A02": {"path": "models/motor_imagery_a02.pkl", "method": "FBCSP+LDA"},
+    "A03": {"path": "models/motor_imagery_a03.pkl", "method": "CSP+SVM"},
+    "A04": {"path": "models/motor_imagery_a04.pkl", "method": "FBCSP+LDA"},
+    "A05": {"path": "models/motor_imagery_a05.pkl", "method": "FBCSP+LDA"},
+    "A06": {"path": "models/motor_imagery_a06.pkl", "method": "FBCSP+LDA"},
+    "A07": {"path": "models/motor_imagery_a07.pkl", "method": "FBCSP+LDA"},
+    "A08": {"path": "models/motor_imagery_a08.pkl", "method": "CSP+SVM"},
+    "A09": {"path": "models/motor_imagery_a09.pkl", "method": "CSP+SVM"}
+  }
+}
